@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO </title>
+    <link href="/style.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js">
+    </script>
+
+  </head>
+  <body>
+
+    <button onclick="myFunction()">Click Me</button>
+    <div id="myDIV" style="display:none;">
+      <button id="send1" value="IMG1">Slide1</button>
+      <button id="send2" value="IMG2">Slide2</button>
+      <button id="send3" value="IMG3">Slide3</button>
+      <button id="send4" value="IMG4">Slide4</button>
+    </div>
+   
+  </div>
+    <input id="message" type="text" placeholder="message"/>
+
+  </div>
+
+  <img id="photo" ></img>
+
+    <script>
+      var socket = io.connect("http://localhost:3000");
+
+      //Query DOM
+      var message = document.getElementById('message'),
+      btn1 = document.getElementById('send1'),
+      btn2 = document.getElementById('send2'),
+      btn3 = document.getElementById('send3'),
+      btn4 = document.getElementById('send4'),
+      output = document.getElementById('output'),
+      feedback = document.getElementById('feedback');
+
+      
+      //emit event
+
+
+      btn1.addEventListener('click',function(){
+        socket.emit('chat',{
+          messagekey: btn1.value
+        });
+      });
+      btn2.addEventListener('click',function(){
+        socket.emit('chat',{
+          messagekey: btn2.value
+        });
+      });
+      btn3.addEventListener('click',function(){
+        socket.emit('chat',{
+          messagekey: btn3.value
+        });
+      });
+      btn4.addEventListener('click',function(){
+        socket.emit('chat',{
+          messagekey: btn4.value
+        });
+      });
+
+
+
+      //listen for event
+      socket.on('chat',function(data){
+        document.getElementById("photo").src = data.messagekey+".jpg";
+      });
+
+      //who is typing
+
+
+
+      function myFunction() {
+        var pw = document.getElementById("message").value;
+        if (pw=="39"){
+                var x = document.getElementById("myDIV");
+                if (x.style.display === "none") {
+                  x.style.display = "block";
+                } else {
+                  x.style.display = "none";
+                }
+
+        }else{
+          alertfun();
+
+        }
+     }
+
+     function alertfun(){
+        socket.emit('someoneclick',{
+        messagekey: "some one has just clicked"
+        });
+     }
+
+     socket.on('someoneclick',function(data){
+        alert(data.messagekey);
+      });
+
+    </script>
+  </body>
+</html>     

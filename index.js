@@ -5,7 +5,8 @@ var socket = require("socket.io");
 
 //app set up
 var app = express();
-var server = app.listen(3000, function(){
+const PORT = process.env.PORT || 3000;
+var server = app.listen(PORT, function(){
     console.log('listening on :3000');
     });
 app.use(express.static('public'));

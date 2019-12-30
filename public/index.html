@@ -25,8 +25,7 @@
   <img id="photo" ></img>
 
     <script>
-const PORT = process.env.PORT || 3000;
-      var socket = io.connect(PORT);
+      var socket = io.connect('https://instantpresent.herokuapp.com');
 
       //Query DOM
       var message = document.getElementById('message'),

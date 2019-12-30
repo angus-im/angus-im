@@ -25,7 +25,7 @@
   <img id="photo" ></img>
 
     <script>
-      var socket = io.connect('https://instantpresent.herokuapp.com');
+      var socket = io.connect(window.location.hostname);
 
       //Query DOM
       var message = document.getElementById('message'),
